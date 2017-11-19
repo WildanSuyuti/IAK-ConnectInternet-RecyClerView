@@ -8,16 +8,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import id.co.kakaroto.iak_conncettointernetdemo.model.Weather;
+
 /**
  * Created by kakaroto on 18/11/17.
  */
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    List<Double> speeds;
+    List<Weather> weathers;
 
-    public Adapter(List<Double> speeds) {
-        this.speeds = speeds;
+    public Adapter(List<Weather> weathers) {
+        this.weathers = weathers;
     }
 
     @Override
@@ -29,13 +31,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Double speed = speeds.get(position);
-        holder.tvSpeed.setText(String.valueOf(speed));
+        Weather weather = weathers.get(position);
+        holder.tvSpeed.setText(weather.getMain() + "- " + weather.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return speeds.size();
+        return weathers.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -47,8 +49,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    public void addAll(List<Double> speeds) {
-        this.speeds = speeds;
+    public void addAll(List<Weather> speeds) {
+        this.weathers = speeds;
         notifyDataSetChanged();
     }
 }

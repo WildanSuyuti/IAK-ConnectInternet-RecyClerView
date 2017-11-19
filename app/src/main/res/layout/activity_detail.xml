@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/space_15">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_15"
+        android:gravity="center"
+        android:text="Detail Info"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_25" />
+
+    <TextView
+        android:id="@+id/tv_dt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:text="DT: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_dt_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginLeft="@dimen/space_15"
+        android:text="DT CONTET: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_presuare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_dt"
+        android:text="Presuare: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_presuare_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_dt"
+        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginLeft="@dimen/space_15"
+        android:text="DT CONTET: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_hummadity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_presuare"
+        android:text="Hummadity: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_humidity_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_presuare"
+        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginLeft="@dimen/space_15"
+        android:text=" www"
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_hummadity"
+        android:text="Main: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_main_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_hummadity"
+        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginLeft="@dimen/space_15"
+        android:text="aa "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_main"
+        android:text="Description: "
+        android:textSize="@dimen/size_18" />
+
+    <TextView
+        android:id="@+id/tv_description_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_main"
+        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginLeft="@dimen/space_15"
+        android:text="aa "
+        android:textSize="@dimen/size_18" />
+
+    <Button
+        android:onClick="openOtherIntent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/size_18" />
+
+</RelativeLayout>

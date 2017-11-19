@@ -1,12 +1,14 @@
 package id.co.kakaroto.iak_conncettointernetdemo;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,11 +19,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import id.co.kakaroto.iak_conncettointernetdemo.model.Weather;
+import id.co.kakaroto.iak_conncettointernetdemo.utility.RecyclerTouchListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvCity;
     private RecyclerView rvWeather;
-    List<Double> speeds;
+    List<Weather> weathers;
     Adapter adapter;
 
     @Override
@@ -39,25 +43,34 @@ public class MainActivity extends AppCompatActivity {
 
         tvCity = findViewById(R.id.tv_city);
         rvWeather = findViewById(R.id.rv_weather);
-        speeds = new ArrayList<>();
-        adapter = new Adapter(speeds);
+        weathers = new ArrayList<>();
+        adapter = new Adapter(weathers);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         rvWeather.setLayoutManager(layoutManager);
         rvWeather.setAdapter(adapter);
 
-/*        speeds.add(4.5);
-        speeds.add(5.9);
-        speeds.add(4.5);
-        speeds.add(5.9);
-        speeds.add(4.4);
-        speeds.add(5.3);
-        speeds.add(4.2);
-        speeds.add(5.5);
-        speeds.add(4.6);
-        speeds.add(5.9);
-        adapter.addAll(speeds);*/
+        rvWeather.addOnItemTouchListener(new RecyclerTouchListener(this, rvWeather,
+                new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Weather weather = weathers.get(position);
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+/*                        intent.putExtra("key-dt", weather.getDt());
+                        intent.putExtra("key-pressure", weather.getPressure());
+                        intent.putExtra("key-humidity", weather.getHumidity());
+                        intent.putExtra("key-main", weather.getMain());
+                        intent.putExtra("key-description", weather.getDescription());*/
+                        intent.putExtra("key-weather", weather);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
 
 
         //get api from url
@@ -78,13 +91,22 @@ public class MainActivity extends AppCompatActivity {
 
             //buat perulangan untuk menampilkan data dalam array
             for (int i = 0; i < arrayData.length(); i++) {
-
                 JSONObject object = arrayData.getJSONObject(i);
 
                 //buat variabel double untuk mengambil data speed
-                double speed = object.getDouble("speed");
-                speeds.add(speed);
-                adapter.addAll(speeds);
+//                double speed = object.getDouble("speed");
+//                weathers.add(speed);
+                Weather weather = new Weather();
+                weather.setDt(object.getDouble("dt"));
+                weather.setPressure(object.getDouble("pressure"));
+                weather.setHumidity(object.getDouble("humidity"));
+                JSONArray weatherArray = object.getJSONArray("weather");
+
+                JSONObject weatherArrayObject = weatherArray.getJSONObject(0);
+                weather.setMain(weatherArrayObject.getString("main"));
+                weather.setDescription(weatherArrayObject.getString("description"));
+                weathers.add(weather);
+                Log.d(TAG, "onCreate: " + weather.toString());
                 //buat variabel int untuk mengambil data deg
                 int deg = object.getInt("deg");
 
@@ -92,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject temp = object.getJSONObject("temp");
 //                Log.d(TAG, "onCreate TEMP day: " + temp.getDouble("day"));
 
-                Log.d(TAG, "onCreate Speed: " + speed);
+//                Log.d(TAG, "onCreate Speed: " + speed);
             }
+
+            adapter.addAll(weathers);
 
             Log.d(TAG, "onCreate result : " + result);
         } catch (InterruptedException | ExecutionException | JSONException e) {
